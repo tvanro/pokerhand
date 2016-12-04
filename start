@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -ae -o pipefail
+
+docker-compose up -d
+npm install
+
+echo "Enter a hand"
+read hand1
+
+echo "Enter another hand"
+read hand2
+
+docker exec -ti pokerhand_node node src/app.js --hand1="$hand1" --hand2="$hand2"
+#docker exec -ti pokerhand_node node src/app.js --hand1="A, A, A, 4, A" --hand2="5, 5, 4, 4, Q"
+
