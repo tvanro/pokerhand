@@ -6,6 +6,5 @@ services:
     container_name: pokerhand_node
     command: tail -f /dev/null
     volumes:
-      - ./src:/home/node/src
-      - ./node_modules:/home/node/node_modules
+      - .:/home/node
     working_dir: /home/node

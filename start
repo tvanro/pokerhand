@@ -2,14 +2,22 @@
 set -ae -o pipefail
 
 docker-compose up -d
-npm install
+docker exec -t pokerhand_node npm install && npm run build
 
-echo "Enter a hand"
-read hand1
 
-echo "Enter another hand"
-read hand2
+echo "♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠"
+echo "♠ Welcome To PokerHands ♠"
+echo "♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠"
+echo "Press [CTRL+C] to stop.."
+while true
+do
+    echo "Enter a hand"
+    read hand1
 
-docker exec -ti pokerhand_node node src/app.js --hand1="$hand1" --hand2="$hand2"
-#docker exec -ti pokerhand_node node src/app.js --hand1="A, A, A, 4, A" --hand2="5, 5, 4, 4, Q"
+    echo "Enter another hand"
+    read hand2
+
+    docker exec -ti pokerhand_node node build/app.js --hand1="$hand1" --hand2="$hand2"
+done
+
 
