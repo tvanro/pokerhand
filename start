@@ -2,8 +2,8 @@
 set -ae -o pipefail
 
 docker-compose up -d
-docker exec -t pokerhand_node npm install && npm run build
-
+docker exec -t pokerhand_node npm install
+docker exec -t pokerhand_node npm run build
 
 echo "♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠"
 echo "♠ Welcome To PokerHands ♠"
