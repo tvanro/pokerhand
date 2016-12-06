@@ -23,6 +23,7 @@ export function getPokerCategoryRankResult(hand) {
   let tripleRanks = [];
   let pairRanks = [];
   let isStraigth = true;
+  let isBabyFive = false;
   let prev = -1;
 
   for (let i = 0; i < handRanks.length; i++) { 
@@ -40,12 +41,15 @@ export function getPokerCategoryRankResult(hand) {
     } else if (cardCount === 2 && pairRanks.indexOf(cardRank) === -1) {
       pairRanks.push(cardRank);
     }
-
+    
     if(isStraigth && prev > -1) {
       isStraigth = (prev + 1 === cardRank);
     }
     prev = cardRank;
   }
+
+  // check for babyfive
+  isBabyFive = (handRanks[0] === 0 && handRanks[1] === 9 && handRanks[2] === 10 && handRanks[3] === 11 && handRanks[4] === 12);
 
   // check for FOUR_OF_A_KIND
   if (cardCount === 4) {
@@ -56,8 +60,9 @@ export function getPokerCategoryRankResult(hand) {
     return { categoryRank: POKER_CATEGORY_RANKS.FULL_HOUSE, tripleRank: tripleRanks[0], pairRank: pairRanks[0] }; 
   }
   // check for STRAIGHT
-  if (isStraigth) {
-    return { categoryRank: POKER_CATEGORY_RANKS.STRAIGHT, cardRank: handRanks[0] }; 
+  if (isStraigth || isBabyFive) {
+    const straightCardRank = isBabyFive ? handRanks[1] : handRanks[0];
+    return { categoryRank: POKER_CATEGORY_RANKS.STRAIGHT, cardRank: straightCardRank }; 
   }
   // check for THREE_OF_A_KIND
   if (tripleRanks.length) {
