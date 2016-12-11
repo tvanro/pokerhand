@@ -1,5 +1,10 @@
 CLI application that allows a user to enter two poker hands, then correctly reports which of the two is stronger.
 
+### Requirements
+```
+Docker
+```
+
 ### How to run the application
 ```
 git clone https://github.com/tvanro/pokerhand.git
